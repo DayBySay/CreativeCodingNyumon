@@ -8,19 +8,24 @@ void setup() {
     background(0);
 
     for (int i = 0; i < num; ++i) {
-        x[i] = width / 2;
-        y[i] = height / 2;
+        x[i] = random(width);
+        y[i] = random(height);
     }
 }
 
 void draw() {
-    stroke(255);
-    noFill();
     blendMode(ADD);
+    stroke(63);
+    noFill();
 
     for (int i = 0; i < num; ++i) {
         point(x[i], y[i]);
-        x[i] += random(-4.0, 4.0);
-        y[i] += random(-4.0, 4.0);
+        x[i] += random(-1.0, 1.0);
+        y[i] += random(-1.0, 1.0);
     }
+
+    blendMode(BLEND);
+    noStroke();
+    fill(0, 3);
+    rect(0, 0, width, height);
 }
