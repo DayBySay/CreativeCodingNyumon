@@ -1,27 +1,12 @@
+float diameter;
 PVector location;
-PVector velocity;
-int num = 1000;
 
 void setup() {
-    size(800, 600, P2D);    
-    frameRate(60);
-    blendMode(ADD);
-    noStroke();
-
-    location = new PVector(random(width), random(height));
-    velocity = new PVector(random(-4, 4), random(-4, 4));
+    size(800, 600);
+    diameter = 400;
+    location = new PVector(width / 2, height / 2);
 }
 
 void draw() {
-    background(0);
-    fill(255);
-    ellipse(location.x, location.y, 20, 20);
-    location.add(velocity);
-
-    if (location.x < 0 || location.x > width) {
-        velocity.x = velocity.x * -1;
-    }
-    if (location.y < 0 || location.y > height) {
-        velocity.y = velocity.y * -1;
-    }
+    ellipse(location.x, location.y, diameter, diameter);
 }
