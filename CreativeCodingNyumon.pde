@@ -1,45 +1,47 @@
-int num = 10000;
-float[] x = new float[num];
-float[] y = new float[num];
+int num = 1000;
+Particle[] myParticle = new Particle[num];
 
 void setup() {
     size(800, 600, P2D);    
     frameRate(60);
-    background(0);
+    blendMode(ADD);
+    noStroke();
 
     for (int i = 0; i < num; ++i) {
-        x[i] = random(width);
-        y[i] = random(height);
+        myParticle[i] = new Particle(random(8, 32));
     }
 }
 
 void draw() {
-    blendMode(ADD);
-    stroke(255);
-    noFill();
-
+    background(0);
     for (int i = 0; i < num; ++i) {
-        point(x[i], y[i]);
-        x[i] += random(-1.0, 1.5);
-        y[i] += random(-0.5, 1.2);
+        myParticle[i].draw();
+    }
+}
 
-        if(x[i] < 0) {
-            x[i] = width;
-        }
-        if(x[i] > width) {
-            x[i] = 0;
-        }
-        if(y[i] < 0) {
-            y[i] = height;
-        }
-        if(y[i] > height) {
-            y[i] = 0;
-        }
+class Particle {
+    color col;
+    float diameter;
+    PVector location;
+    PVector velocity;
+
+    Particle(float _diameter) {
+        diameter = _diameter;
+        location = new PVector(random(0, width), random(0, height));
+        velocity = new PVector(random(-4, 4), random(-4, 4));
+        col = color(random(255), random(255), random(255));
     }
 
-
-    blendMode(BLEND);
-    noStroke();
-    fill(0, 11);
-    rect(0, 0, width, height);
+    void draw() {
+        fill(col);
+        ellipse(location.x, location.y, diameter, diameter);
+        location.add(velocity);
+        if (location.x < 0 || location.x > width) {
+            velocity.x = velocity.x * -1;
+        }
+        if (location.y < 0 || location.y > height) {
+            velocity.y = velocity.y * -1;
+        }
+    }
 }
+
