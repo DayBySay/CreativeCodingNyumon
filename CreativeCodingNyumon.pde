@@ -20,12 +20,7 @@ void draw() {
 
     for (int i = 0; i < num; ++i) {
         point(x[i], y[i]);
-        x[i] += random(-2.0, 2.0);
-        y[i] += random(-2.0, 2.0);
+        x[i] += random(-4.0, 4.0);
+        y[i] += random(-4.0, 4.0);
     }
-
-    blendMode(BLEND);
-    fill(0, 5);
-    noStroke();
-    rect(0, 0, width, height);
 }
