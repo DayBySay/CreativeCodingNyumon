@@ -3,8 +3,7 @@ DrawEllipse myCircle;
 void setup() {
     size(800, 600);
 
-    myCircle = new DrawEllipse();
-    myCircle.setup();
+    myCircle = new DrawEllipse(400, new PVector(width / 2, height / 2));
 }
 
 void draw() {
@@ -15,9 +14,9 @@ class DrawEllipse {
     float diameter;
     PVector location;
 
-    void setup() {
-        diameter = 400;
-        location = new PVector(width / 2, height / 2);
+    DrawEllipse(float _diameter, PVector _location) {
+        diameter = _diameter;
+        location = _location;
     }
 
     void draw() {
