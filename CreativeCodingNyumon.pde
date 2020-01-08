@@ -1,26 +1,26 @@
-import processing.pdf.*;
-
-float strength = 1400.0;
-int step = 6;
-float noiseScale = 0.002;
+PVector fource;
+PVector acceleration;
+PVector location;
+PVector velocity;
+float mass;
 
 void setup() {
-    size(1920, 1200);
-    noLoop();
+    size(800, 600);
+    frameRate(60);
+    location = new PVector(0, 0);
+    velocity = new PVector(0, 0);
+    fource = new PVector(3, 2);
+    mass = 1;
+    acceleration = fource.mult(mass);
 }
 
 void draw() {
-    beginRecord(PDF, "output.pdf");
-    background(255);
-    stroke(191);
-    noFill();
-    for (int j = -height * 2; j < height * 2; j += step) {
-        beginShape();
-        for (int i = -width / 2; i < width * 1.5; i += step) {
-            float noise = noise(i * noiseScale, j * noiseScale) * strength;
-            curveVertex(i, j + noise + (i * 0.5));
-        }
-        endShape();
-    }
-    endRecord();
+   fill(0, 31);
+   rect(0, 0, width, height);
+   fill(255);
+   noStroke();
+   velocity.add(acceleration);
+   location.add(velocity);
+   acceleration.set(0, 0);
+   ellipse(location.x, location.y, 20, 20); 
 }
