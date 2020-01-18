@@ -30,3 +30,12 @@ void draw() {
         particles[i].bounceOffWalls();
     }
 }
+
+void mouseReleased() {
+    for (int i = 0; i < NUM; ++i) {
+        float angle = random(PI * 20);
+        float length = random(20);
+        PVector force = new PVector(cos(angle) * length, sin(angle) * length);
+        particles[i].addForce(force);
+    }
+}

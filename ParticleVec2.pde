@@ -70,4 +70,9 @@ class ParticleVec2  {
             location.y = min.y;
         }
     }
+
+    void addForce(PVector force) {
+        force.div(mass);
+        acceleration.add(force);
+    }
 }
