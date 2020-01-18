@@ -1,26 +1,32 @@
-PVector fource;
-PVector acceleration;
-PVector location;
-PVector velocity;
-float mass;
+int NUM = 1000;
+ParticleVec2[] particles = new ParticleVec2[NUM];
 
 void setup() {
-    size(800, 600);
+    size(800, 600, P2D);
     frameRate(60);
-    location = new PVector(0, 0);
-    velocity = new PVector(0, 0);
-    fource = new PVector(3, 2);
-    mass = 1;
-    acceleration = fource.mult(mass);
+    for (int i = 0; i < NUM; ++i) {
+        particles[i] = new ParticleVec2();
+        particles[i].location.set(width/2, height/2);
+
+        float angle = random(PI * 2);
+        float length = random(20);
+        float posX = cos(angle) * length;
+        float posY = sin(angle) * length;
+
+        particles[i].acceleration.set(posX, posY);
+        particles[i].gravity.set(0, 0.1);
+        particles[i].friction = 0.01;
+    }
 }
 
 void draw() {
-   fill(0, 31);
-   rect(0, 0, width, height);
-   fill(255);
-   noStroke();
-   velocity.add(acceleration);
-   location.add(velocity);
-   acceleration.set(0, 0);
-   ellipse(location.x, location.y, 20, 20); 
+    fill(0, 31);
+    rect(0,0, width, height);
+    noStroke();
+    fill(255);
+    for (int i = 0; i < NUM; ++i) {
+        particles[i].update();
+        particles[i].draw();
+        particles[i].bounceOffWalls();
+    }
 }
