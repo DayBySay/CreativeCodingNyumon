@@ -9,6 +9,7 @@ class ParticleVec2  {
     PVector min;
     PVector max;
     float radius;
+    float G;
 
     ParticleVec2() {
         radius = 4.0;
@@ -20,6 +21,7 @@ class ParticleVec2  {
         gravity = new PVector(0, 0);
         min = new PVector(0, 0);
         max = new PVector(width, height);
+        G = 1.0;
     }
 
     void update() {
@@ -74,5 +76,15 @@ class ParticleVec2  {
     void addForce(PVector force) {
         force.div(mass);
         acceleration.add(force);
+    }
+
+    void attract(PVector center, float _mass, float min, float max) {
+        float distance = PVector.dist(center, location);
+        distance = constrain(distance, min, max);
+        float strength = G * (mass * _mass) / (distance * distance);
+        PVector force = PVector.sub(center, location);
+        force.normalize();
+        force.mult(strength);
+        addForce(force);
     }
 }

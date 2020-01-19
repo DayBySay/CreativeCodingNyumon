@@ -1,4 +1,4 @@
-int NUM = 1000;
+int NUM = 2000;
 ParticleVec2[] particles = new ParticleVec2[NUM];
 
 void setup() {
@@ -6,15 +6,8 @@ void setup() {
     frameRate(60);
     for (int i = 0; i < NUM; ++i) {
         particles[i] = new ParticleVec2();
-        particles[i].location.set(width/2, height/2);
-
-        float angle = random(PI * 2);
-        float length = random(20);
-        float posX = cos(angle) * length;
-        float posY = sin(angle) * length;
-
-        particles[i].acceleration.set(posX, posY);
-        particles[i].gravity.set(0, 0.1);
+        particles[i].location.set(random(width), random(height));
+        particles[i].gravity.set(0, 0);
         particles[i].friction = 0.01;
     }
 }
@@ -31,11 +24,18 @@ void draw() {
     }
 }
 
-void mouseReleased() {
+void mouseDragged() {
     for (int i = 0; i < NUM; ++i) {
-        float angle = random(PI * 20);
-        float length = random(20);
-        PVector force = new PVector(cos(angle) * length, sin(angle) * length);
-        particles[i].addForce(force);
+        PVector mouseLoc = new PVector(mouseX, mouseY);
+        particles[i].attract(mouseLoc, 200, 5, 20);
     }
 }
+
+// void mouseReleased() {
+//     for (int i = 0; i < NUM; ++i) {
+//         float angle = random(PI * 20);
+//         float length = random(20);
+//         PVector force = new PVector(cos(angle) * length, sin(angle) * length);
+//         particles[i].addForce(force);
+//     }
+// }
